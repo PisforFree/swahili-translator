@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -18,6 +19,20 @@ pipeline {
             steps {
                 script {
                     sh "docker build -t $FULL_IMAGE_NAME ."
+                }
+            }
+        }
+
+        stage('Push to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    script {
+                        sh """
+                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                            docker push ${FULL_IMAGE_NAME}
+                            docker logout
+                        """
+                    }
                 }
             }
         }
