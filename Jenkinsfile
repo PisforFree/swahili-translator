@@ -5,13 +5,13 @@ pipeline {
         IMAGE_NAME = "pisforfree/swahili-translator"
     }
 
-    stages {
-        stage('Checkout Code') {
-            steps {
-                echo 'Cloning source code...'
-                git 'https://github.com/PisforFree/swahili-translator.git'
-            }
-        }
+   stages {
+  //  stage('Checkout Code') {
+  //     steps {
+  //          echo 'Cloning source code...'
+  //          git 'https://github.com/PisforFree/swahili-translator.git'
+  //     }
+  // }
 
         stage('Docker Build') {
             steps {
